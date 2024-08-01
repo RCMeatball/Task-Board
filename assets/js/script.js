@@ -4,7 +4,15 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
-
+    let id = JSON.parse(localStorage.getItem("nextId"))
+    if (id != null) {
+        id +=1;
+        localStorage.setItem("nextId", JSON.stringify(id));
+    } else {
+        id = 1;
+        localStorage.setItem("nextId", JSON.stringify(id));
+    }
+    return id;
 }
 
 // Todo: create a function to create a task card
@@ -36,3 +44,5 @@ function handleDrop(event, ui) {
 $(document).ready(function () {
 
 });
+
+
