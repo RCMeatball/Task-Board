@@ -17,7 +17,14 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-
+    var taskCard =
+    `<section id="${task.id}" class="draggable" style ="border-style: solid; border-color: black;">
+    <h2>Title: ${task.title}</h2>
+    <p>Description: ${task.description}</p>
+    <h6>Due Date: ${task.Date}</h6>
+    <button onclick="handleDeleteTask(event)" style ="background-color: black; color: red;">Delete</button>
+    </section>`;
+    return taskCard;
 }
 
 // Todo: create a function to render the task list and make cards draggable
