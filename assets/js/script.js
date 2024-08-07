@@ -29,16 +29,47 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
-    let tasks = JSON.parse(localStorage.getItem("tasks"));
-    if (tasks != null) {
-        for (let i = 0; i< tasks.length; i++) {
-            
-        }
+    let taskList = JSON.parse(localStorage.getItem("tasks"));
+    if (taskList != null) {
+        for(let i = 0; i < taskList.length; i++) {
+            $('.row').find(`${taskList[i].id}`).remove();
+        };
+
+        for (let i =0; i < taskList.length; i++) {
+            var taskCard = createTaskCard(taskList[i]);
+            var taskLane = taskList[i].status;
+            $(`#${taskLane}`).append(taskCard);
+            $(`#${taskLane}`).sortable({containment: "document"});
+            $(`#${taskLane}`).find('section').draggable({revert: "invalid", containment: "document", stack: ".draggable", connectToSortable: `#${taskLane}`});
+        };
+    } else {
+        return;
     }
 }
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
+    const date = $('#date').val()
+    const newTask = {
+        id: generateTaskId(),
+        title: $('#taskTitle').val(),
+        description: $('#taskDescription').val(),
+        date: dayjs(date).format("MM/DD/YYYY"),
+        status: 'To-Do' 
+        
+    };
+
+    if (taskList != null) {
+        taskList.push(newTask);
+        localStorage.setItem('tasks', JSON.stringify(taskList));
+    } else {
+        taskList = [];
+        taskList.push(newTask);
+        localStorage.setItem('tasks', JSON.stringify(taskList));
+
+    }
+    return newTask;
+
 
 }
 
